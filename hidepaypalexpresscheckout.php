@@ -3,22 +3,24 @@
 require_once 'hidepaypalexpresscheckout.civix.php';
 
 /**
- * Implementation of hook_civicrm_buildForm
+ * Implements hook_civicrm_buildForm().
  *
  * @link http://wiki.civicrm.org/confluence/display/CRMDOC/hook_civicrm_buildForm
  */
 function hidepaypalexpresscheckout_civicrm_buildForm($formName, &$form) {
-  if ($formName == 'CRM_Contribute_Form_Contribution_Main' &&
-    !empty($form->_elementIndex['_qf_Main_upload_express'])
-  ){
+  if ($formName == 'CRM_Financial_Form_Payment' && !empty($form->_elementIndex['_qf_Payment_upload_express'])
+  ) {
     unset($form->_elements[$form->_elementIndex['_qf_Main_upload_express']]);
     unset($form->_elementIndex['_qf_Main_upload_express']);
   }
-  elseif ($formName == 'CRM_Financial_Form_Payment' &&
-   !empty($form->_elementIndex['_qf_Payment_upload_express'])
+  if ($formName == 'CRM_Financial_Form_Payment' && !empty($form->_elementIndex['_qf_Payment_upload_express'])
   ) {
     unset($form->_elements[$form->_elementIndex['_qf_Payment_upload_express']]);
     unset($form->_elementIndex['_qf_Payment_upload_express']);
+  }
+  if ($formName == 'CRM_Contribute_Form_UpdateBilling' && !empty($form->_elementIndex['_qf_UpdateBilling_upload_express'])) {
+    unset($form->_elements[$form->_elementIndex['_qf_UpdateBilling_upload_express']]);
+    unset($form->_elementIndex['_qf_UpdateBilling_upload_express']);
   }
 }
 
@@ -33,8 +35,6 @@ function hidepaypalexpresscheckout_civicrm_config(&$config) {
 
 /**
  * Implements hook_civicrm_xmlMenu().
- *
- * @param $files array(string)
  *
  * @link http://wiki.civicrm.org/confluence/display/CRMDOC/hook_civicrm_xmlMenu
  */
@@ -81,13 +81,6 @@ function hidepaypalexpresscheckout_civicrm_disable() {
 /**
  * Implements hook_civicrm_upgrade().
  *
- * @param $op string, the type of operation being performed; 'check' or 'enqueue'
- * @param $queue CRM_Queue_Queue, (for 'enqueue') the modifiable list of pending up upgrade tasks
- *
- * @return mixed
- *   Based on op. for 'check', returns array(boolean) (TRUE if upgrades are pending)
- *                for 'enqueue', returns void
- *
  * @link http://wiki.civicrm.org/confluence/display/CRMDOC/hook_civicrm_upgrade
  */
 function hidepaypalexpresscheckout_civicrm_upgrade($op, CRM_Queue_Queue $queue = NULL) {
@@ -130,7 +123,7 @@ function hidepaypalexpresscheckout_civicrm_caseTypes(&$caseTypes) {
  * @link http://wiki.civicrm.org/confluence/display/CRMDOC/hook_civicrm_caseTypes
  */
 function hidepaypalexpresscheckout_civicrm_angularModules(&$angularModules) {
-_hidepaypalexpresscheckout_civix_civicrm_angularModules($angularModules);
+  _hidepaypalexpresscheckout_civix_civicrm_angularModules($angularModules);
 }
 
 /**
@@ -141,18 +134,3 @@ _hidepaypalexpresscheckout_civix_civicrm_angularModules($angularModules);
 function hidepaypalexpresscheckout_civicrm_alterSettingsFolders(&$metaDataFolders = NULL) {
   _hidepaypalexpresscheckout_civix_civicrm_alterSettingsFolders($metaDataFolders);
 }
-
-/**
- * Functions below this ship commented out. Uncomment as required.
- *
-
-/**
- * Implements hook_civicrm_preProcess().
- *
- * @link http://wiki.civicrm.org/confluence/display/CRMDOC/hook_civicrm_preProcess
- *
-function hidepaypalexpresscheckout_civicrm_preProcess($formName, &$form) {
-
-}
-
-*/
