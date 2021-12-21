@@ -8,7 +8,7 @@ require_once 'hidepaypalexpresscheckout.civix.php';
  * @link http://wiki.civicrm.org/confluence/display/CRMDOC/hook_civicrm_buildForm
  */
 function hidepaypalexpresscheckout_civicrm_buildForm($formName, &$form) {
-  if ($formName == 'CRM_Financial_Form_Payment' && !empty($form->_elementIndex['_qf_Payment_upload_express'])
+  if ($formName == 'CRM_Contribute_Form_Contribution_Main' && !empty($form->_elementIndex['_qf_Main_upload_express'])
   ) {
     unset($form->_elements[$form->_elementIndex['_qf_Main_upload_express']]);
     unset($form->_elementIndex['_qf_Main_upload_express']);
